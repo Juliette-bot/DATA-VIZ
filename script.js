@@ -3,6 +3,8 @@ import { citaionStreameuses } from './dico.js'
 const btnReset = document.getElementById('btnReset')
 const input = document.getElementById('input')
 const divInfo1 = document.getElementById('divInfo1')
+const divInfo2 = document.getElementById('divInfo2')
+const divInfo3 = document.getElementById('divInfo3')
 
 
 
@@ -77,12 +79,14 @@ function btnResetAndInput() {
 
 input.addEventListener('keydown', async (event) => {
     if (event.key === 'Enter' && event.target.value !== '') {
+       
 
         const response = await fetchTwitch(event.target.value)
         console.log(response.followers_total)
         const pFollowers = document.createElement('p')
         pFollowers.innerText = response.followers_total
         divInfo1.appendChild(pFollowers)
+        event.target.value = ''
 
         etoilesContent()
         anyme023Content()
@@ -116,12 +120,12 @@ async function etoilesContent() {
 
     const pEtoilesHours = document.createElement('p')
     pEtoilesHours.innerText = data.hours_watched
-    divInfo1.appendChild(pEtoilesHours)
+    divInfo2.appendChild(pEtoilesHours)
     pEtoilesHours.classList.add('etoilesHours')
 
     const pEtoilesRank = document.createElement('p')
     pEtoilesRank.innerText = data.rank
-    divInfo1.appendChild(pEtoilesRank)
+    divInfo3.appendChild(pEtoilesRank)
     pEtoilesRank.classList.add('etoilesRank')
 
 
@@ -143,12 +147,12 @@ async function anyme023Content() {
 
     const pAnymeHours = document.createElement('p')
     pAnymeHours.innerText = data.hours_watched
-    divInfo1.appendChild(pAnymeHours)
+    divInfo2.appendChild(pAnymeHours)
     pAnymeHours.classList.add('anymeHours')
 
     const pAnymeRank = document.createElement('p')
     pAnymeRank.innerText = data.rank
-    divInfo1.appendChild(pAnymeRank)
+    divInfo3.appendChild(pAnymeRank)
     pAnymeRank.classList.add('anymeRank')
 
 }
@@ -167,12 +171,12 @@ async function squeezieContent() {
 
     const pSqueezieHours = document.createElement('p')
     pSqueezieHours.innerText = data.hours_watched
-    divInfo1.appendChild(pSqueezieHours)
+    divInfo2.appendChild(pSqueezieHours)
     pSqueezieHours.classList.add('squeezieHours')
 
     const pSqueezieRank = document.createElement('p')
     pSqueezieRank.innerText = data.rank
-    divInfo1.appendChild(pSqueezieRank)
+    divInfo3.appendChild(pSqueezieRank)
     pSqueezieRank.classList.add('squeezieRank')
 
 
@@ -180,5 +184,18 @@ async function squeezieContent() {
 
 
 
+function resetBtn() {
+ 
 
+btnReset.addEventListener('click',() => {
+
+        divInfo1.innerText = ''
+        divInfo2.innerText = ''
+        divInfo3.innerText = ''
+        
+
+} )
+    
+}
+resetBtn()
 
