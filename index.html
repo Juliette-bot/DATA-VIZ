@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script type="module" src="dico.js" defer></script>
     <script type="module" src="script.js" defer></script>
-
-
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
     <div id="divLaoding"></div>
 
     <div>
-    <input type="text" id="input">
-    <button id="btnReset">Reset</button>
+        <label class="input-container closed">
+            <div class="shadow"></div>
+            <div class="center">
+                <input type="text" id="input" placeholder="Search">
+            </div>
+            <div class="sticks"></div>
+        </label>
+
+        <button id="btnReset">Reset</button>
     </div>
-    
+
     <div id="divInfo1"></div>
     <div id="divInfo2"></div>
     <div id="divInfo3"></div>
 
+
+
+
+
 </body>
+
 </html>

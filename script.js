@@ -4,6 +4,8 @@ const btnReset = document.getElementById('btnReset')
 const input = document.getElementById('input')
 const divInfo1 = document.getElementById('divInfo1')
 
+
+
 setTimeout(() => {
 
     btnResetAndInput()
@@ -14,6 +16,7 @@ setTimeout(() => {
 
 
 function hideBtnResteAndInput() {
+
     const input = document.getElementById('input')
     const btnReset = document.getElementById('btnReset')
 
@@ -61,6 +64,15 @@ function btnResetAndInput() {
     btnReset.style.display = "flex"
 
 }
+
+
+/*document.querySelector('.sticks').addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    //document.querySelector('.input').value = '';
+    document.querySelector('.input-container').blur();
+});*/
+
 
 
 input.addEventListener('keydown', async (event) => {
