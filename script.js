@@ -5,6 +5,14 @@ const input = document.getElementById('input')
 const divInfo1 = document.getElementById('divInfo1')
 const divInfo2 = document.getElementById('divInfo2')
 const divInfo3 = document.getElementById('divInfo3')
+const dataInfo1 = document.getElementById('dataInfo1')
+const dataInfo2 = document.getElementById('dataInfo2')
+const dataInfo3 = document.getElementById('dataInfo3')
+ const titleHoursWatched = document.getElementById('title2');
+  const titleFollowers = document.getElementById('title1');
+   const titleRank = document.getElementById('title3');
+let firstSearch = true
+
 
 
 
@@ -12,6 +20,7 @@ setTimeout(() => {
 
     btnResetAndInput()
     clearCitations()
+    
 
 }
     , 3000)
@@ -76,27 +85,54 @@ function btnResetAndInput() {
 });*/
 
 
-
+function inputRefresh () {
 input.addEventListener('keydown', async (event) => {
     if (event.key === 'Enter' && event.target.value !== '') {
-       
+      
 
         const response = await fetchTwitch(event.target.value)
         console.log(response.followers_total)
-        const pFollowers = document.createElement('p')
-        pFollowers.innerText = response.followers_total
-        divInfo1.appendChild(pFollowers)
-        event.target.value = ''
+
+        if (dataInfo1.firstChild) {
+    dataInfo1.firstChild.innerText = `${response.followers_total}`;
+        } else{
+            const pFollowers = document.createElement('p')
+        pFollowers.innerText = `${response.followers_total}`
+        dataInfo1.appendChild(pFollowers)
+        }
+        if (dataInfo2.firstChild) {
+    dataInfo2.firstChild.innerText = response.hours_watched;
+        } else {
+              const searchHours = document.createElement('p')
+        searchHours.innerText = response.hours_watched
+        dataInfo2.appendChild(searchHours)
+        }
+        if (dataInfo3.firstChild) {
+    dataInfo3.firstChild.innerText = response.rank;
+        } else {
+        
+        const searchRank = document.createElement('p')
+        searchRank.innerText = response.rank
+        dataInfo3.appendChild(searchRank)
+        }
+        if (firstSearch ) {
 
         etoilesContent()
         anyme023Content()
         squeezieContent()
+        addTitles()
+        
+            firstSearch = false 
 
+        }
+
+        event.target.value = ''
 
 
     }
 
 })
+} inputRefresh()
 
 async function fetchTwitch(searchStreameuse) {
     const response = await fetch(`https://twitchtracker.com/api/channels/summary/${searchStreameuse}`)
@@ -106,6 +142,27 @@ async function fetchTwitch(searchStreameuse) {
 
 }
 
+function addTitles() {
+    if (document.getElementById('title1') !== '') {
+        const titleFollowers = document.getElementById('title1');
+        titleFollowers.innerText = 'Followers';
+        titleFollowers.classList.add('title');
+        divInfo1.prepend(titleFollowers)
+    }
+    if (document.getElementById('title2') !== '') {
+        const titleHoursWatched = document.getElementById('title2');
+        titleHoursWatched.innerText = 'Heures streamées regardées :';
+        titleHoursWatched.classList.add('title');
+        divInfo2.prepend(titleHoursWatched)
+    }
+    if (document.getElementById('title3') !== '') {
+        const titleRank = document.getElementById('title3');
+        titleRank.innerText = 'Rank Mondial :';
+        titleRank.classList.add('title');
+        divInfo3.prepend(titleRank)
+    }
+    
+}
 
 async function etoilesContent() {
 
@@ -113,19 +170,19 @@ async function etoilesContent() {
     const data = await response.json();
 
     const pEtoilesFollowers = document.createElement('p')
-    pEtoilesFollowers.innerText = data.followers_total
-    divInfo1.appendChild(pEtoilesFollowers)
+    pEtoilesFollowers.innerText =`${data.followers_total}`
+    dataInfo1.appendChild(pEtoilesFollowers)
     pEtoilesFollowers.classList.add('etoilesFollowers')
 
 
     const pEtoilesHours = document.createElement('p')
-    pEtoilesHours.innerText = data.hours_watched
-    divInfo2.appendChild(pEtoilesHours)
+    pEtoilesHours.innerText = ` ${data.hours_watched}`
+    dataInfo2.appendChild(pEtoilesHours)
     pEtoilesHours.classList.add('etoilesHours')
 
     const pEtoilesRank = document.createElement('p')
-    pEtoilesRank.innerText = data.rank
-    divInfo3.appendChild(pEtoilesRank)
+    pEtoilesRank.innerText = ` ${data.rank}`
+    dataInfo3.appendChild(pEtoilesRank)
     pEtoilesRank.classList.add('etoilesRank')
 
 
@@ -141,18 +198,18 @@ async function anyme023Content() {
 
     const pAnymeFollowers = document.createElement('p')
     pAnymeFollowers.innerText = data.followers_total
-    divInfo1.appendChild(pAnymeFollowers)
+    dataInfo1.appendChild(pAnymeFollowers)
     pAnymeFollowers.classList.add('anymeFollowers')
 
 
     const pAnymeHours = document.createElement('p')
     pAnymeHours.innerText = data.hours_watched
-    divInfo2.appendChild(pAnymeHours)
+    dataInfo2.appendChild(pAnymeHours)
     pAnymeHours.classList.add('anymeHours')
 
     const pAnymeRank = document.createElement('p')
     pAnymeRank.innerText = data.rank
-    divInfo3.appendChild(pAnymeRank)
+    dataInfo3.appendChild(pAnymeRank)
     pAnymeRank.classList.add('anymeRank')
 
 }
@@ -165,18 +222,18 @@ async function squeezieContent() {
 
     const pSqueezieFollowers = document.createElement('p')
     pSqueezieFollowers.innerText = data.followers_total
-    divInfo1.appendChild(pSqueezieFollowers)
+    dataInfo1.appendChild(pSqueezieFollowers)
     pSqueezieFollowers.classList.add('squeezieFollowers')
 
 
     const pSqueezieHours = document.createElement('p')
     pSqueezieHours.innerText = data.hours_watched
-    divInfo2.appendChild(pSqueezieHours)
+    dataInfo2.appendChild(pSqueezieHours)
     pSqueezieHours.classList.add('squeezieHours')
 
     const pSqueezieRank = document.createElement('p')
     pSqueezieRank.innerText = data.rank
-    divInfo3.appendChild(pSqueezieRank)
+    dataInfo3.appendChild(pSqueezieRank)
     pSqueezieRank.classList.add('squeezieRank')
 
 
@@ -189,13 +246,25 @@ function resetBtn() {
 
 btnReset.addEventListener('click',() => {
 
-        divInfo1.innerText = ''
-        divInfo2.innerText = ''
-        divInfo3.innerText = ''
+        dataInfo1.innerText = ''
+        dataInfo2.innerText = ''
+        dataInfo3.innerText = ''
+        titleFollowers.innerText = ''
+        titleHoursWatched.innerText = ''
+        titleRank.innerText = ''
         
-
+        firstSearch = true
+inputRefresh()
 } )
     
 }
 resetBtn()
 
+function refreshInput(click) {
+    btnReset.addEventListener('click', () => {
+if (click) {
+    fetchTwitch()
+}
+    })
+    
+}
