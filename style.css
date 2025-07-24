@@ -217,3 +217,8 @@ body:focus-within {
   border-radius: 4px;
   cursor: pointer;
 }
+
+    #dataInfo1 {
+        font-size: 64px;
+        color: #8df0cc;
+    }

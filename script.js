@@ -1,4 +1,5 @@
 import { citaionStreameuses } from './dico.js'
+import { animate } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm"
 
 const btnReset = document.getElementById('btnReset')
 const input = document.getElementById('input')
@@ -8,9 +9,9 @@ const divInfo3 = document.getElementById('divInfo3')
 const dataInfo1 = document.getElementById('dataInfo1')
 const dataInfo2 = document.getElementById('dataInfo2')
 const dataInfo3 = document.getElementById('dataInfo3')
- const titleHoursWatched = document.getElementById('title2');
-  const titleFollowers = document.getElementById('title1');
-   const titleRank = document.getElementById('title3');
+const titleHoursWatched = document.getElementById('title2');
+const titleFollowers = document.getElementById('title1');
+const titleRank = document.getElementById('title3');
 let firstSearch = true
 
 
@@ -20,7 +21,7 @@ setTimeout(() => {
 
     btnResetAndInput()
     clearCitations()
-    
+
 
 }
     , 3000)
@@ -85,54 +86,86 @@ function btnResetAndInput() {
 });*/
 
 
-function inputRefresh () {
-input.addEventListener('keydown', async (event) => {
-    if (event.key === 'Enter' && event.target.value !== '') {
-      
+function inputRefresh() {
+    input.addEventListener('keydown', async (event) => {
+        if (event.key === 'Enter' && event.target.value !== '') {
 
-        const response = await fetchTwitch(event.target.value)
-        console.log(response.followers_total)
 
-        if (dataInfo1.firstChild) {
-    dataInfo1.firstChild.innerText = `${response.followers_total}`;
-        } else{
-            const pFollowers = document.createElement('p')
-        pFollowers.innerText = `${response.followers_total}`
-        dataInfo1.appendChild(pFollowers)
+            const response = await fetchTwitch(event.target.value)
+            console.log(response.followers_total)
+
+            if (dataInfo1.firstChild) {
+                addAnimationFollowers2(response.followers_total)
+               // dataInfo1.firstChild.innerText = `${response.followers_total}`;
+            } else {
+                const pFollowers = document.createElement('p')
+                pFollowers.innerText = `${response.followers_total}`
+                dataInfo1.appendChild(pFollowers)
+            }
+            if (dataInfo2.firstChild) {
+                dataInfo2.firstChild.innerText = response.hours_watched;
+            } else {
+                const searchHours = document.createElement('p')
+                searchHours.innerText = response.hours_watched
+                dataInfo2.appendChild(searchHours)
+            }
+            if (dataInfo3.firstChild) {
+                dataInfo3.firstChild.innerText = response.rank;
+            } else {
+
+                const searchRank = document.createElement('p')
+                searchRank.innerText = response.rank
+                dataInfo3.appendChild(searchRank)
+            }
+            if (firstSearch) {
+
+                etoilesContent()
+                anyme023Content()
+                squeezieContent()
+                addTitles()
+
+                firstSearch = false
+
+            }
+
+            addAnimationFollowers()
+            event.target.value = ''
+
+
         }
-        if (dataInfo2.firstChild) {
-    dataInfo2.firstChild.innerText = response.hours_watched;
-        } else {
-              const searchHours = document.createElement('p')
-        searchHours.innerText = response.hours_watched
-        dataInfo2.appendChild(searchHours)
-        }
-        if (dataInfo3.firstChild) {
-    dataInfo3.firstChild.innerText = response.rank;
-        } else {
-        
-        const searchRank = document.createElement('p')
-        searchRank.innerText = response.rank
-        dataInfo3.appendChild(searchRank)
-        }
-        if (firstSearch ) {
 
-        etoilesContent()
-        anyme023Content()
-        squeezieContent()
-        addTitles()
-        
-            firstSearch = false 
+    })
+} inputRefresh()
 
-        }
 
-        event.target.value = ''
+function addAnimationFollowers2(newValue) {
+    let dataInfo1 = document.getElementById('dataInfo1');
+   
+        let currentValue = dataInfo1.firstChild;
 
+        animate(0, newValue, {
+            duration: 2,
+            ease: "circOut",
+            onUpdate: (latest) => (currentValue.innerText = Math.round(latest)),
+        })
 
     }
 
-})
-} inputRefresh()
+
+
+function addAnimationFollowers() {
+    let dataInfo1 = document.getElementById('dataInfo1');
+    if (dataInfo1.firstChild !== undefined) {
+        let currentValue = dataInfo1.firstChild.innerText;
+
+        animate(0, currentValue, {
+            duration: 2,
+            ease: "circOut",
+            onUpdate: (latest) => (currentValue = Math.round(latest)),
+        })
+
+    }
+} addAnimationFollowers()
 
 async function fetchTwitch(searchStreameuse) {
     const response = await fetch(`https://twitchtracker.com/api/channels/summary/${searchStreameuse}`)
@@ -161,7 +194,7 @@ function addTitles() {
         titleRank.classList.add('title');
         divInfo3.prepend(titleRank)
     }
-    
+
 }
 
 async function etoilesContent() {
@@ -170,7 +203,7 @@ async function etoilesContent() {
     const data = await response.json();
 
     const pEtoilesFollowers = document.createElement('p')
-    pEtoilesFollowers.innerText =`${data.followers_total}`
+    pEtoilesFollowers.innerText = `${data.followers_total}`
     dataInfo1.appendChild(pEtoilesFollowers)
     pEtoilesFollowers.classList.add('etoilesFollowers')
 
@@ -242,9 +275,9 @@ async function squeezieContent() {
 
 
 function resetBtn() {
- 
 
-btnReset.addEventListener('click',() => {
+
+    btnReset.addEventListener('click', () => {
 
         dataInfo1.innerText = ''
         dataInfo2.innerText = ''
@@ -252,19 +285,19 @@ btnReset.addEventListener('click',() => {
         titleFollowers.innerText = ''
         titleHoursWatched.innerText = ''
         titleRank.innerText = ''
-        
+
         firstSearch = true
-inputRefresh()
-} )
-    
+        inputRefresh()
+    })
+
 }
 resetBtn()
 
 function refreshInput(click) {
     btnReset.addEventListener('click', () => {
-if (click) {
-    fetchTwitch()
-}
+        if (click) {
+            fetchTwitch()
+        }
     })
-    
+
 }
