@@ -9,7 +9,12 @@
     <script type="module" src="main.js" defer></script>
     <script type="module" src="chargement.js" defer></script>
     <script type="module" src="pagePrincipale.js" defer></script>
+    <script type="module" src="animation.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/themes/adaptive.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +44,7 @@
 
 
 
-    <div id="divInfo1">
+    <div id="   ">
 
         <div id="title1"></div>
 
@@ -62,28 +67,46 @@
     <div id="divInfo2">
         <div id="title2"></div>
 
-        <div id="dataInfo2">
-            <p id="nameStreameuse2" class="name"></p>
-            <p id="pInfo1Streameuse2" class="pInfo1"></p>
+        <figure class="highcharts-figure">
+            <div id="container">
+                <div id="dataInfo2">
+                    <p id="nameStreameuse2" class="name"></p>
+                    <p id="pInfo1Streameuse2" class="pInfo1"></p>
 
-            <p id="etoiles2" class="name"></p>
-            <p id="pInfo1Etoiles2" class="pInfo1"></p>
+                    <p id="etoiles2" class="name"></p>
+                    <p id="pInfo1Etoiles2" class="pInfo1"></p>
 
-            <p id="anyme2" class="name"></p>
-            <p id="pInfo1Anyme2" class="pInfo1"></p>
+                    <p id="anyme2" class="name"></p>
+                    <p id="pInfo1Anyme2" class="pInfo1"></p>
 
-            <p id="squeezie2" class="name"></p>
-            <p id="pInfo1Squeezie2" class="pInfo1"></p>
-        </div>
-
+                    <p id="squeezie2" class="name"></p>
+                    <p id="pInfo1Squeezie2" class="pInfo1"></p>
+                </div>
+            </div>
+        </figure>
 
     </div>
+
 
 
     <div id="divInfo3">
         <div id="title3"></div>
-        <div id="dataInfo3"></div>
+
+        <div id="dataInfo3">
+            <p id="nameStreameuse3" class="name"></p>
+            <p id="pInfo1Streameuse3" class="pInfo1"></p>
+
+            <p id="etoiles3" class="name"></p>
+            <p id="pInfo1Etoiles3" class="pInfo1"></p>
+
+            <p id="anyme3" class="name"></p>
+            <p id="pInfo1Anyme3" class="pInfo1"></p>
+
+            <p id="squeezie3" class="name"></p>
+            <p id="pInfo1Squeezie3" class="pInfo1"></p>
+        </div>
     </div>
+
 
 </body>
 

@@ -12,7 +12,7 @@ setTimeout(() => {
 
 
 }
-    ,8000)
+    ,1000)
 
 
 inputRefresh()
