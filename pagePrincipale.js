@@ -26,6 +26,15 @@ const pInfo1Anyme = document.getElementById('pInfo1Anyme')
 const squeezie = document.getElementById('squeezie')
 const pInfo1Squeezie = document.getElementById('pInfo1Squeezie')
 
+const nameStreameuse2 = document.getElementById('nameStreameuse2')
+const pInfo1Streameuse2 = document.getElementById('pInfo1Streameuse2')
+const etoiles2 = document.getElementById('etoiles2')
+const pInfo1Etoiles2 = document.getElementById('pInfo1Etoiles2')
+const anyme2 = document.getElementById('anyme2')
+const pInfo1Anyme2 = document.getElementById('pInfo1Anyme2')
+const squeezie2 = document.getElementById('squeezie2')
+const pInfo1Squeezie2 = document.getElementById('pInfo1Squeezie2')
+
 
 
 
@@ -54,13 +63,13 @@ function inputRefresh() {
                 pInfo1Streameuse.innerText = `${response.followers_total}`
                 addAnimationFollowers(pInfo1Streameuse)
             }
-            if (dataInfo2.firstChild) {
-                dataInfo2.firstChild.innerText = response.hours_watched;
+            if (pInfo1Streameuse2.firstChild) {
+                pInfo1Streameuse2.firstChild.innerText = response.hours_watched;
                 console.log(dataInfo2)
             } else {
                 const searchHours = document.createElement('p')
                 searchHours.innerText = response.hours_watched
-                dataInfo2.appendChild(searchHours)
+                
 
             }
             if (dataInfo3.firstChild) {
@@ -79,9 +88,10 @@ function inputRefresh() {
                 squeezieContent()*/
                 addTitles()
 
-                contentInfo1(etoiles, pInfo1Etoiles, nameEtoiles)
-                contentInfo1(anyme, pInfo1Anyme, nameAnyme)
-                contentInfo1(squeezie, pInfo1Squeezie, nameSqueezie)
+                contentInfo(etoiles, pInfo1Etoiles, nameEtoiles, etoiles2, pInfo1Etoiles2)
+                contentInfo(anyme, pInfo1Anyme, nameAnyme, anyme2, pInfo1Anyme2)
+                contentInfo(squeezie, pInfo1Squeezie, nameSqueezie, squeezie2, pInfo1Squeezie2)
+
 
                 firstSearch = false
 
@@ -111,14 +121,7 @@ function addAnimationFollowers(child) {
 
 
 
-//Appel de l'API pour notre input
-async function fetchTwitch(searchStreameuse) {
-    const response = await fetch(`https://twitchtracker.com/api/channels/summary/${searchStreameuse}`)
-    const streaumeuse = await response.json()
-    return streaumeuse
 
-
-}
 
 
 //Ajout de titre au dessus de nos données dans chaque block ("block")
@@ -144,8 +147,16 @@ function addTitles() {
 
 }
 
+//Appel de l'API pour notre input
+async function fetchTwitch(searchStreameuse) {
+    const response = await fetch(`https://twitchtracker.com/api/channels/summary/${searchStreameuse}`)
+    const streaumeuse = await response.json()
+    return streaumeuse
 
-async function contentInfo1(nameElement, pElement, streamerName) {
+
+}
+
+async function contentInfo(nameElement, pElement, streamerName, nameElement2, pElement2) {
     const response = await fetch(`https://twitchtracker.com/api/channels/summary/${streamerName}`)
     const data = await response.json()
 
@@ -153,6 +164,8 @@ async function contentInfo1(nameElement, pElement, streamerName) {
     pElement.innerHTML = `${data.followers_total}`
     addAnimationFollowers(pElement)
 
+    nameElement2.innerText = streamerName
+    pElement2.innerHTML = `${data.hours_watched}`
 
     return data
 
