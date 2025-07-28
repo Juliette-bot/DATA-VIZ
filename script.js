@@ -14,8 +14,30 @@ const titleFollowers = document.getElementById('title1');
 const titleRank = document.getElementById('title3');
 let firstSearch = true
 
+const nameEtoiles = "Etoiles"
+const nameAnyme = "Anyme"
+const nameSqueezie = "Squeezie"
+const nameStreameuse = document.getElementById('nameStreameuse')
+const pInfo1Streameuse = document.getElementById('pInfo1Streameuse')
+const etoiles = document.getElementById('etoiles')
+const pInfo1Etoiles = document.getElementById('pInfo1Etoiles')
+const anyme = document.getElementById('anyme')
+const pInfo1Anyme = document.getElementById('pInfo1Anyme')
+const squeezie = document.getElementById('squeezie')
+const pInfo1Squeezie = document.getElementById('pInfo1Squeezie')
 
 
+
+
+
+//----------------------------------CODE DE CHARGEMENT------------------------------------
+
+//Chrono lancé au lancement de la page web, qui vas nous permetre d'affiché 
+//que temporairement du contenu (ici nos citation de streameuse)
+hideBtnResteAndInput()
+
+
+citationAleatoirStreameuses()
 
 setTimeout(() => {
 
@@ -24,9 +46,13 @@ setTimeout(() => {
 
 
 }
-    , 3000)
+    , 7000)
 
 
+
+
+//Fonction qui nous sert a cacher le btnrest et l'input avant de le faire réaparétre apres 
+//l'afficage de nos citations
 function hideBtnResteAndInput() {
 
     const input = document.getElementById('input')
@@ -36,9 +62,10 @@ function hideBtnResteAndInput() {
     btnReset.style.display = "none"
 }
 
-hideBtnResteAndInput()
 
 
+
+//Ici on gener des citation de manière aléatoire, recuperé dans un dico dur
 function citationAleatoirStreameuses() {
     let ciationAleatoire = Math.floor(Math.random() * citaionStreameuses.length)
     let citationAleatoireValue = citaionStreameuses[ciationAleatoire]
@@ -46,28 +73,53 @@ function citationAleatoirStreameuses() {
 
     const h1citationsStreameuse = document.createElement("h1")
     h1citationsStreameuse.innerHTML = citationAleatoireValue.citation
-    h1citationsStreameuse.classList.add('citations')
+    h1citationsStreameuse.classList.add('citations','ml12')
 
     const pNameStreameuse = document.createElement("p")
     pNameStreameuse.innerHTML = citationAleatoireValue.name
-    pNameStreameuse.classList.add('nameStreameuse')
+    pNameStreameuse.classList.add('nameStreameuse','ml12')
 
     divLaoding.appendChild(h1citationsStreameuse)
     divLaoding.appendChild(pNameStreameuse)
 
-
+    lancerAnimation()
 }
-citationAleatoirStreameuses()
 
 
+function lancerAnimation() {
+ const citationContent = document.querySelectorAll(".ml12");
+
+    citationContent.forEach(element => {
+        element.innerHTML = element.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+  anime.timeline({ loop: true })
+    .add({
+      targets: ".ml12 .letter",
+      translateX: [40, 0],
+      translateZ: 0,
+      opacity: [0, 1],
+      easing: "easeOutExpo",
+      duration: 1200,
+      delay: (el, i) => 800 + 30 * i
+    })
+    .add({
+      targets: ".ml12 .letter",
+      translateX: [0, -30],
+      opacity: [1, 0],
+      easing: "easeInExpo",
+      duration: 1100,
+      delay: (el, i) => 100 + 30 * i
+      });
+})}
+
+
+//Ici on cache la div laoding
 function clearCitations() {
 
     const divLaoding = document.getElementById('divLaoding')
-
     divLaoding.style.display = "none"
 }
 
-
+//Ici on rend visible le btn reset et l'input
 function btnResetAndInput() {
     const input = document.getElementById('input')
     const btnReset = document.getElementById('btnReset')
@@ -78,39 +130,48 @@ function btnResetAndInput() {
 }
 
 
-/*document.querySelector('.sticks').addEventListener('click', (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    //document.querySelector('.input').value = '';
-    document.querySelector('.input-container').blur();
-});*/
 
 
+
+
+
+//----------------------------------APPEL DE L'API WEB ET MISE EN ANIMATION DES DONNEES RECUPERE------------------------------------
+
+
+//Notre input keydown qui appel notre api en dynamique selon un nom donné par le/la user
 function inputRefresh() {
     input.addEventListener('keydown', async (event) => {
         if (event.key === 'Enter' && event.target.value !== '') {
 
+            //decouper en fonction qu'on appel ici
 
             const response = await fetchTwitch(event.target.value)
             console.log(response.followers_total)
 
-            if (dataInfo1.firstChild) {
-                addAnimationFollowers2(response.followers_total)
-               // dataInfo1.firstChild.innerText = `${response.followers_total}`;
+
+            if (pInfo1Streameuse.firstChild) {
+
+                nameStreameuse.innerText = "Maghla :"
+                pInfo1Streameuse.firstChild.innerText = `${response.followers_total}`;
+                addAnimationFollowers(pInfo1Streameuse)
+
             } else {
-                const pFollowers = document.createElement('p')
-                pFollowers.innerText = `${response.followers_total}`
-                dataInfo1.appendChild(pFollowers)
+                nameStreameuse.innerText = "Maghla :"
+                pInfo1Streameuse.innerText = `${response.followers_total}`
+                addAnimationFollowers(pInfo1Streameuse)
             }
             if (dataInfo2.firstChild) {
                 dataInfo2.firstChild.innerText = response.hours_watched;
+                console.log(dataInfo2)
             } else {
                 const searchHours = document.createElement('p')
                 searchHours.innerText = response.hours_watched
                 dataInfo2.appendChild(searchHours)
+
             }
             if (dataInfo3.firstChild) {
                 dataInfo3.firstChild.innerText = response.rank;
+                console.log(dataInfo3)
             } else {
 
                 const searchRank = document.createElement('p')
@@ -119,54 +180,45 @@ function inputRefresh() {
             }
             if (firstSearch) {
 
-                etoilesContent()
+                /*etoilesContent()
                 anyme023Content()
-                squeezieContent()
+                squeezieContent()*/
                 addTitles()
+
+                contentInfo1(nameEtoiles, pInfo1Etoiles, 'etoiles')
+                contentInfo1(nameAnyme, pInfo1Anyme, 'anyme023')
+                contentInfo1(nameSqueezie, pInfo1Squeezie, 'squeezie')
 
                 firstSearch = false
 
             }
 
-            addAnimationFollowers()
             event.target.value = ''
 
-
         }
-
     })
-} inputRefresh()
+}
 
-
-function addAnimationFollowers2(newValue) {
-    let dataInfo1 = document.getElementById('dataInfo1');
-   
-        let currentValue = dataInfo1.firstChild;
-
-        animate(0, newValue, {
-            duration: 2,
-            ease: "circOut",
-            onUpdate: (latest) => (currentValue.innerText = Math.round(latest)),
-        })
-
-    }
+inputRefresh()
 
 
 
-function addAnimationFollowers() {
-    let dataInfo1 = document.getElementById('dataInfo1');
-    if (dataInfo1.firstChild !== undefined) {
-        let currentValue = dataInfo1.firstChild.innerText;
+//Application de notre 1ere animation sur un block de données (FOLLOWERS)
+function addAnimationFollowers(child) {
 
-        animate(0, currentValue, {
-            duration: 2,
-            ease: "circOut",
-            onUpdate: (latest) => (currentValue = Math.round(latest)),
-        })
+    let number = parseInt(child.innerText)
 
-    }
-} addAnimationFollowers()
+    animate(0, number, {
+        duration: 2,
+        ease: "circOut",
+        onUpdate: (latest) => (child.innerHTML = Math.round(latest)),
+    })
 
+}
+
+
+
+//Appel de l'API pour notre input
 async function fetchTwitch(searchStreameuse) {
     const response = await fetch(`https://twitchtracker.com/api/channels/summary/${searchStreameuse}`)
     const streaumeuse = await response.json()
@@ -175,6 +227,8 @@ async function fetchTwitch(searchStreameuse) {
 
 }
 
+
+//Ajout de titre au dessus de nos données dans chaque block ("block")
 function addTitles() {
     if (document.getElementById('title1') !== '') {
         const titleFollowers = document.getElementById('title1');
@@ -197,16 +251,17 @@ function addTitles() {
 
 }
 
+
+//Appel du 1er streameur via notre api (toujours le meme ici)
 async function etoilesContent() {
 
     const response = await fetch(`https://twitchtracker.com/api/channels/summary/etoiles`)
     const data = await response.json();
 
-    const pEtoilesFollowers = document.createElement('p')
-    pEtoilesFollowers.innerText = `${data.followers_total}`
-    dataInfo1.appendChild(pEtoilesFollowers)
-    pEtoilesFollowers.classList.add('etoilesFollowers')
 
+    etoiles.innerText = "Etoiles :"
+    pInfo1Etoiles.innerText = `${data.followers_total}`
+    addAnimationFollowers(pInfo1Etoiles)
 
     const pEtoilesHours = document.createElement('p')
     pEtoilesHours.innerText = ` ${data.hours_watched}`
@@ -222,17 +277,32 @@ async function etoilesContent() {
 }
 
 
+async function contentInfo1(nameElement, pElement, streamerName) {
+        const response = await fetch(`https://twitchtracker.com/api/channels/summary/${streamerName}`)
+        const data = await response.json()
 
+      
+        nameElement.innerText = streamerName
+        pElement.innerHTML = `${data.followers_total}`
+
+}
+
+// Appels pour chaque streamer
+
+
+
+//Appel du 2eme streameur via notre api (toujours le meme ici)
 async function anyme023Content() {
 
     const response = await fetch(`https://twitchtracker.com/api/channels/summary/anyme023`)
     const data = await response.json();
 
 
-    const pAnymeFollowers = document.createElement('p')
-    pAnymeFollowers.innerText = data.followers_total
-    dataInfo1.appendChild(pAnymeFollowers)
-    pAnymeFollowers.classList.add('anymeFollowers')
+
+    anyme.innerText = "Anyme :"
+    pInfo1Anyme.innerText = `${data.followers_total}`
+    addAnimationFollowers(pInfo1Anyme)
+
 
 
     const pAnymeHours = document.createElement('p')
@@ -248,15 +318,15 @@ async function anyme023Content() {
 }
 
 
-
+//Appel du 3eme streameur via notre api (toujours le meme ici)
 async function squeezieContent() {
     const response = await fetch(`https://twitchtracker.com/api/channels/summary/squeezie`)
     const data = await response.json()
 
-    const pSqueezieFollowers = document.createElement('p')
-    pSqueezieFollowers.innerText = data.followers_total
-    dataInfo1.appendChild(pSqueezieFollowers)
-    pSqueezieFollowers.classList.add('squeezieFollowers')
+
+    squeezie.innerText = "Squeezie :"
+    pInfo1Squeezie.innerText = `${data.followers_total}`
+    addAnimationFollowers(pInfo1Squeezie)
 
 
     const pSqueezieHours = document.createElement('p')
@@ -273,13 +343,22 @@ async function squeezieContent() {
 }
 
 
-
+//Ajout d'un evenement sur notre btn reset, il vas nous permettre de vider toute nos data
+// et titre pour repartir sur un page "neuve"
 function resetBtn() {
-
 
     btnReset.addEventListener('click', () => {
 
-        dataInfo1.innerText = ''
+
+        nameStreameuse.innerText = ''
+        pInfo1Streameuse.innerText = ''
+        etoiles.innerText = ''
+        pInfo1Etoiles.innerText = ''
+        anyme.innerText = ''
+        pInfo1Anyme.innerText = ''
+        squeezie.innerText = ''
+        pInfo1Squeezie.innerText = ''
+
         dataInfo2.innerText = ''
         dataInfo3.innerText = ''
         titleFollowers.innerText = ''
@@ -291,13 +370,6 @@ function resetBtn() {
     })
 
 }
+
 resetBtn()
 
-function refreshInput(click) {
-    btnReset.addEventListener('click', () => {
-        if (click) {
-            fetchTwitch()
-        }
-    })
-
-}

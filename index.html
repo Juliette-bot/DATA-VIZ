@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script type="module" src="dico.js" defer></script>
     <script type="module" src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <link rel="stylesheet" href="style.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
 
 </head>
+
 <body>
 
-    <div id="divLaoding"></div>
+    <div id="divLaoding" class="text-intro">
+        <h1 class="ml12"></h1>
+    </div>
 
     <div id="divButtons">
         <label class="input-container closed">
@@ -25,19 +34,38 @@
 
         <button id="btnReset">Reset</button>
     </div>
-    
+
+
+
     <div id="divInfo1">
+
         <div id="title1"></div>
-        <div id="dataInfo1"></div>
+
+        <div id="dataInfo1">
+            <p id="nameStreameuse" class="name"></p>
+            <p id="pInfo1Streameuse" class="pInfo1"></p>
+
+            <p id="etoiles" class="name"></p>
+            <p id="pInfo1Etoiles" class="pInfo1"></p>
+
+            <p id="anyme" class="name"></p>
+            <p id="pInfo1Anyme" class="pInfo1"></p>
+
+            <p id="squeezie" class="name"></p>
+            <p id="pInfo1Squeezie" class="pInfo1"></p>
+        </div>
     </div>
+
+
     <div id="divInfo2">
-         <div id="title2"></div>
+        <div id="title2"></div>
         <div id="dataInfo2"></div>
     </div>
     <div id="divInfo3">
-         <div id="title3"></div>
+        <div id="title3"></div>
         <div id="dataInfo3"></div>
     </div>
 
 </body>
+
 </html>
