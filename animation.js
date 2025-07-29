@@ -24,7 +24,7 @@ let seriesData = [
     //[anymeInfo2.dataset.name, parseInt(anymeInfo2.dataset.hours_watched)],
    //[squeezieInfo2.dataset.name, parseInt(squeezieInfo2.dataset.hours_watched)],
    // [etoilesInfo2.dataset.name, parseInt(etoilesInfo2.dataset.hours_watched)],
-    [info2Streameuse.dataset.name, parseInt(info2Streameuse.dataset.hours_watched)]
+   // [info2Streameuse.dataset.name, parseInt(info2Streameuse.dataset.hours_watched)]
 ]
 
 let chart
@@ -78,20 +78,12 @@ async function addStreamerToChart(streamerName, params) {
 
     //const response = await fetch(`https://twitchtracker.com/api/channels/summary/${streamerName}`);
     //const data = await response.json();
-
-
-
-
-    const hours = params;
+    
+    const hours = params.hours_watched;
     seriesData.push([streamerName, hours]);
     chart.series[0].setData(seriesData, true);
+console.log(chart.series)
 
-    /*if(resetBtn() = true){
-        const hours = data.hours_watched;
-        chart.series.splice(0, chart.series.length)
-        seriesData.push([streamerName, hours]);
-
-    }*/
 
 }
 
@@ -101,14 +93,6 @@ async function addStreamerToChart(streamerName, params) {
 
 
 
-input.addEventListener('keydown', async (event) => {
-    if (event.key === 'Enter' && event.target.value !== '') {
-        const streamerName = event.target.value
-        await addStreamerToChart(streamerName)
-        event.target.value = ''
-       
 
-    }
-})
 
 

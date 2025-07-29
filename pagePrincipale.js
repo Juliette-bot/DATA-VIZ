@@ -17,8 +17,8 @@ function inputRefresh() {
     input.addEventListener('keydown', async (event) => {
         if (event.key === 'Enter' && event.target.value !== '') {
             const response = await fetchTwitch(event.target.value)
-
-
+            initChart()
+            addStreamerToChart(event.target.value, response)
 
             const nameStreameuse = document.getElementById('nameStreameuse')
             const pInfo1Streameuse = document.getElementById('pInfo1Streameuse')
@@ -40,20 +40,11 @@ function inputRefresh() {
                 addAnimationFollowers(pInfo1Streameuse)
 
 
-            } if (pInfo1Streameuse2) {
-                //nameStreameuse2.innerHTML = event.target.value
-                //pInfo1Streameuse2.firstChild.innerHTML = `${response.hours_watched}`
-                const streamerName = event.target.value
-                // await addStreamerToChart(streamerName)
-                // await addStreamerToChart(nameStreameuse2)
+            } if (response) {
 
+               // initChart()
+              //  addStreamerToChart(event.target.value, response)
 
-            } else {
-                const streamerName = event.target.value
-                // await addStreamerToChart(streamerName)
-                //nameStreameuse2.innerText = event.target.value
-                //pInfo1Streameuse2.innerText = `${response.hours_watched}`
-                // await addStreamerToChart(nameStreameuse2)
 
 
 
@@ -88,18 +79,19 @@ function inputRefresh() {
                 const squeezie3 = document.getElementById('squeezie3')
                 const pInfo1Squeezie3 = document.getElementById('pInfo1Squeezie3')
 
-                let mavar = contentInfo(etoiles, pInfo1Etoiles, nameEtoiles, etoiles3, pInfo1Etoiles3)
-                contentInfo(anyme, pInfo1Anyme, nameAnyme, anyme3, pInfo1Anyme3)
-                contentInfo(squeezie, pInfo1Squeezie, nameSqueezie, squeezie3, pInfo1Squeezie3)
-
-                addStreamerToChart('Etoiles', mavar, console.log(mavar))
-                addStreamerToChart('Squeezie')
-                addStreamerToChart('Anyme023')
-                initChart()
+                let mavar = await contentInfo(etoiles, pInfo1Etoiles, nameEtoiles, etoiles3, pInfo1Etoiles3)
+                let mavaar = await contentInfo(anyme, pInfo1Anyme, nameAnyme, anyme3, pInfo1Anyme3)
+                let mavaaar = await contentInfo(squeezie, pInfo1Squeezie, nameSqueezie, squeezie3, pInfo1Squeezie3)
 
 
+                addStreamerToChart('Etoiles', mavar)
+                addStreamerToChart('Squeezie', mavaar)
+                addStreamerToChart('Anyme023', mavaaar)
 
-                console.log("coucou")
+
+
+
+
 
 
                 firstSearch = false
