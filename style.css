@@ -256,7 +256,7 @@ body:focus-within {
   cursor: pointer;
 }
 
-#title1 {
+.title {
   font-family: "Goldman";
   font-size: 70px;
   color: rgb(222, 102, 102);

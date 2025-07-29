@@ -74,18 +74,36 @@ function initChart() {
     });
 }
 
+const fixedStreamers = ['Etoiles', 'Anyme023', 'Squeezie'];
+const fixedData = []; // contiendra les données fixes une fois au démarrage
+let customData = null; // contiendra les données de la streameuse personnalisée
+
 async function addStreamerToChart(streamerName, params) {
-
-    //const response = await fetch(`https://twitchtracker.com/api/channels/summary/${streamerName}`);
-    //const data = await response.json();
-    
     const hours = params.hours_watched;
-    seriesData.push([streamerName, hours]);
-    chart.series[0].setData(seriesData, true);
-console.log(chart.series)
 
+    // Si c'est un nom fixe (Etoiles, Anyme, Squeezie), on l'ajoute aux données fixes
+    if (fixedStreamers.includes(streamerName)) {
+        const index = fixedData.findIndex(item => item[0] === streamerName);
+        if (index !== -1) {
+            fixedData[index][1] = hours;
+        } else {
+            fixedData.push([streamerName, hours]);
+        }
+    } else {
+        // Sinon, on considère que c'est une streameuse personnalisée → on remplace
+        customData = [streamerName, hours];
+    }
 
+    // Construit la série complète à chaque fois : données fixes + la donnée custom (s’il y en a une)
+    const newSeriesData = [...fixedData];
+    if (customData) {
+        newSeriesData.push(customData);
+    }
+
+    chart.series[0].setData(newSeriesData, true);
 }
+
+
 
 
 

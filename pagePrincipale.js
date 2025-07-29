@@ -18,7 +18,7 @@ function inputRefresh() {
         if (event.key === 'Enter' && event.target.value !== '') {
             const response = await fetchTwitch(event.target.value)
             initChart()
-            addStreamerToChart(event.target.value, response)
+            await addStreamerToChart(event.target.value, response)
 
             const nameStreameuse = document.getElementById('nameStreameuse')
             const pInfo1Streameuse = document.getElementById('pInfo1Streameuse')
@@ -42,8 +42,8 @@ function inputRefresh() {
 
             } if (response) {
 
-               // initChart()
-              //  addStreamerToChart(event.target.value, response)
+                // initChart()
+                //  addStreamerToChart(event.target.value, response)
 
 
 
@@ -85,8 +85,8 @@ function inputRefresh() {
 
 
                 addStreamerToChart('Etoiles', mavar)
-                addStreamerToChart('Squeezie', mavaar)
-                addStreamerToChart('Anyme023', mavaaar)
+                addStreamerToChart('Squeezie', mavaaar)
+                addStreamerToChart('Anyme023', mavaar)
 
 
 
