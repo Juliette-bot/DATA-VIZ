@@ -1,21 +1,38 @@
-export {initChart, addStreamerToChart}
-/*const anymeInfo2 = document.getElementById('pInfo1Anyme2');
+export { initChart, addStreamerToChart, hideannimation2, visibilityAnnimation2 }
+import { resetBtn } from "./pagePrincipale.js";
+const anymeInfo2 = document.getElementById('pInfo1Anyme2');
 const squeezieInfo2 = document.getElementById('pInfo1Squeezie2');
 const etoilesInfo2 = document.getElementById('pInfo1Etoiles2');
-const info2Streameuse = document.getElementById('pInfo1Streameuse2');*/
+const info2Streameuse = document.getElementById('pInfo1Streameuse2');
+function hideannimation2() {
+
+    const divInfo2 = document.getElementById('divInfo2')
+
+    divInfo2.style.display = 'none'
+}
+
+
+function visibilityAnnimation2() {
+
+    const divInfo2 = document.getElementById('divInfo2')
+
+    divInfo2.style.display = 'flex'
+}
+
 
 let seriesData = [
-        //[anymeInfo2.dataset.name, parseInt(anymeInfo2.dataset.hours_watched)],
-       // [squeezieInfo2.dataset.name, parseInt(squeezieInfo2.dataset.hours_watched)],
-       //[etoilesInfo2.dataset.name, parseInt(etoilesInfo2.dataset.hours_watched)],
-      // [info2Streameuse.dataset.name, parseInt(info2Streameuse.dataset.hours_watched)]
-    ]
+    //[anymeInfo2.dataset.name, parseInt(anymeInfo2.dataset.hours_watched)],
+   //[squeezieInfo2.dataset.name, parseInt(squeezieInfo2.dataset.hours_watched)],
+   // [etoilesInfo2.dataset.name, parseInt(etoilesInfo2.dataset.hours_watched)],
+    [info2Streameuse.dataset.name, parseInt(info2Streameuse.dataset.hours_watched)]
+]
 
 let chart
 
 function initChart() {
     chart = Highcharts.chart('container', {
         chart: {
+           backgroundColor: "#14141400",
             plotBackgroundColor: null,
             plotBorderWidth: 0,
             plotShadow: false
@@ -57,20 +74,28 @@ function initChart() {
     });
 }
 
-async function addStreamerToChart(streamerName) {
+async function addStreamerToChart(streamerName, params) {
 
-    const response = await fetch(`https://twitchtracker.com/api/channels/summary/${streamerName}`);
-    const data = await response.json();
+    //const response = await fetch(`https://twitchtracker.com/api/channels/summary/${streamerName}`);
+    //const data = await response.json();
 
-    const hours = data.hours_watched;
+
+
+
+    const hours = params;
     seriesData.push([streamerName, hours]);
     chart.series[0].setData(seriesData, true);
 
+    /*if(resetBtn() = true){
+        const hours = data.hours_watched;
+        chart.series.splice(0, chart.series.length)
+        seriesData.push([streamerName, hours]);
+
+    }*/
+
 }
 
-addStreamerToChart('Etoiles')
-addStreamerToChart('Squeezie')
-addStreamerToChart('Anyme023')
+
 
 
 
@@ -81,11 +106,9 @@ input.addEventListener('keydown', async (event) => {
         const streamerName = event.target.value
         await addStreamerToChart(streamerName)
         event.target.value = ''
+       
+
     }
 })
 
 
-
-
-initChart();
-console.log(anyme)

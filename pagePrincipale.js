@@ -1,6 +1,6 @@
 import { animate } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm"
 import { initChart, addStreamerToChart } from "./animation.js"
-export { inputRefresh }
+export { inputRefresh, resetBtn }
 
 const btnReset = document.getElementById('btnReset')
 const input = document.getElementById('input')
@@ -18,7 +18,8 @@ function inputRefresh() {
         if (event.key === 'Enter' && event.target.value !== '') {
             const response = await fetchTwitch(event.target.value)
 
-            
+
+
             const nameStreameuse = document.getElementById('nameStreameuse')
             const pInfo1Streameuse = document.getElementById('pInfo1Streameuse')
             const nameStreameuse2 = document.getElementById('nameStreameuse2')
@@ -27,9 +28,9 @@ function inputRefresh() {
             const pInfo1Streameuse3 = document.getElementById('pInfo1Streameuse3')
 
 
-            if (pInfo1Streameuse.firstChild) {
+            if (pInfo1Streameuse) {
                 nameStreameuse.innerText = event.target.value
-                pInfo1Streameuse.firstChild.innerText = `${response.followers_total}`;
+                pInfo1Streameuse.innerText = `${response.followers_total}`;
                 addAnimationFollowers(pInfo1Streameuse)
 
 
@@ -39,26 +40,26 @@ function inputRefresh() {
                 addAnimationFollowers(pInfo1Streameuse)
 
 
-            } if (pInfo1Streameuse2.firstChild) {
+            } if (pInfo1Streameuse2) {
                 //nameStreameuse2.innerHTML = event.target.value
                 //pInfo1Streameuse2.firstChild.innerHTML = `${response.hours_watched}`
                 const streamerName = event.target.value
-                await addStreamerToChart(streamerName)
+                // await addStreamerToChart(streamerName)
                 // await addStreamerToChart(nameStreameuse2)
 
 
             } else {
                 const streamerName = event.target.value
-                await addStreamerToChart(streamerName)
+                // await addStreamerToChart(streamerName)
                 //nameStreameuse2.innerText = event.target.value
                 //pInfo1Streameuse2.innerText = `${response.hours_watched}`
                 // await addStreamerToChart(nameStreameuse2)
 
 
 
-            } if (pInfo1Streameuse3.firstChild) {
+            } if (pInfo1Streameuse3) {
                 nameStreameuse3.innerText = event.target.value
-                pInfo1Streameuse3.firstChild.innerText = `${response.rank}`
+                pInfo1Streameuse3.innerText = `${response.rank}`
 
 
             } else {
@@ -87,9 +88,19 @@ function inputRefresh() {
                 const squeezie3 = document.getElementById('squeezie3')
                 const pInfo1Squeezie3 = document.getElementById('pInfo1Squeezie3')
 
-                contentInfo(etoiles, pInfo1Etoiles, nameEtoiles, etoiles3, pInfo1Etoiles3)
+                let mavar = contentInfo(etoiles, pInfo1Etoiles, nameEtoiles, etoiles3, pInfo1Etoiles3)
                 contentInfo(anyme, pInfo1Anyme, nameAnyme, anyme3, pInfo1Anyme3)
                 contentInfo(squeezie, pInfo1Squeezie, nameSqueezie, squeezie3, pInfo1Squeezie3)
+
+                addStreamerToChart('Etoiles', mavar, console.log(mavar))
+                addStreamerToChart('Squeezie')
+                addStreamerToChart('Anyme023')
+                initChart()
+
+
+
+                console.log("coucou")
+
 
                 firstSearch = false
 
@@ -155,7 +166,7 @@ async function fetchTwitch(searchStreameuse) {
 
 }
 
-async function contentInfo(nameElement, pElement, streamerName, nameElement2, pElement2, nameElement3, pElement3) {
+async function contentInfo(nameElement, pElement, streamerName, nameElement3, pElement3) {
     const response = await fetch(`https://twitchtracker.com/api/channels/summary/${streamerName}`)
     const data = await response.json()
 
@@ -163,11 +174,11 @@ async function contentInfo(nameElement, pElement, streamerName, nameElement2, pE
     pElement.innerHTML = `${data.followers_total}`
     addAnimationFollowers(pElement)
 
-    nameElement2.innerText = streamerName
-    pElement2.innerHTML = `${data.hours_watched}`
+    //nameElement2.innerText = streamerName
+    //pElement2.innerHTML = `${data.hours_watched}`
 
     nameElement3.innerText = streamerName
-    pElement3.innerHTML = `${data.rank}`
+    pElement3.innerText = `${data.rank}`
 
     return data
 
@@ -189,8 +200,27 @@ function resetBtn() {
         squeezie.innerText = ''
         pInfo1Squeezie.innerText = ''
 
-        dataInfo2.innerText = ''
-        dataInfo3.innerText = ''
+        /*nameStreameuse2.innerText = ''
+        pInfo1Streameuse2.innerText = ''
+        etoiles2.innerText = ''
+        pInfo1Etoiles2.innerText = ''
+        anyme2.innerText = ''
+        pInfo1Anyme2.innerText = ''
+        squeezie2.innerText = ''
+        pInfo1Squeezie2.innerText = ''*/
+
+        nameStreameuse3.innerText = ''
+        pInfo1Streameuse3.innerText = ''
+        etoiles3.innerText = ''
+        pInfo1Etoiles3.innerText = ''
+        anyme3.innerText = ''
+        pInfo1Anyme3.innerText = ''
+        squeezie3.innerText = ''
+        pInfo1Squeezie3.innerText = ''
+
+
+        //divInfo2.innerText = ''
+        //dataInfo3.innerText = ''
         titleFollowers.innerText = ''
         titleHoursWatched.innerText = ''
         titleRank.innerText = ''
