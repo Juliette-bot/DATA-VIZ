@@ -1,9 +1,5 @@
 export { initChart, addStreamerToChart, hideannimation2, visibilityAnnimation2 }
-import { resetBtn } from "./pagePrincipale.js";
-const anymeInfo2 = document.getElementById('pInfo1Anyme2');
-const squeezieInfo2 = document.getElementById('pInfo1Squeezie2');
-const etoilesInfo2 = document.getElementById('pInfo1Etoiles2');
-const info2Streameuse = document.getElementById('pInfo1Streameuse2');
+
 function hideannimation2() {
 
     const divInfo2 = document.getElementById('divInfo2')
@@ -21,10 +17,6 @@ function visibilityAnnimation2() {
 
 
 let seriesData = [
-    //[anymeInfo2.dataset.name, parseInt(anymeInfo2.dataset.hours_watched)],
-   //[squeezieInfo2.dataset.name, parseInt(squeezieInfo2.dataset.hours_watched)],
-   // [etoilesInfo2.dataset.name, parseInt(etoilesInfo2.dataset.hours_watched)],
-   // [info2Streameuse.dataset.name, parseInt(info2Streameuse.dataset.hours_watched)]
 ]
 
 let chart

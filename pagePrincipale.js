@@ -1,12 +1,9 @@
 import { animate } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
 import { initChart, addStreamerToChart } from "./animation.js";
-export { inputRefresh, resetBtn };
 
 const btnReset = document.getElementById("btnReset");
 const input = document.getElementById("input");
-// const titleHoursWatched = document.getElementById("title2");
-// const titleFollowers = document.getElementById("title1");
-// const titleRank = document.getElementById("title3");
+
 let firstSearch = true;
 
 //Notre input keydown qui appel notre api en dynamique selon un nom donné par le/la user
@@ -105,30 +102,8 @@ function addAnimationFollowers(child) {
 }
 
 //Ajout de titre au dessus de nos données dans chaque block ("block")
-// function addTitles() {
-//   const divInfo1 = document.getElementById("divInfo1");
-//   const divInfo2 = document.getElementById("divInfo2");
-//   const divInfo3 = document.getElementById("divInfo3");
 
-//   if (titleFollowers !== "") {
-//     const titleFollowers = document.getElementById("title1");
-//     titleFollowers.innerText = "Followers";
-//     titleFollowers.classList.add("title");
-//     divInfo1.prepend(titleFollowers);
-//   }
-//   if (titleHoursWatched !== "") {
-//     const titleHoursWatched = document.getElementById("title2");
-//     titleHoursWatched.innerText = "Heures streamées regardées :";
-//     titleHoursWatched.classList.add("title");
-//     divInfo2.prepend(titleHoursWatched);
-//   }
-//   if (titleRank !== "") {
-//     const titleRank = document.getElementById("title3");
-//     titleRank.innerText = "Rank Mondial :";
-//     titleRank.classList.add("title");
-//     divInfo3.prepend(titleRank);
-//   }
-// }
+
 
 function addTitles() {
   const section1 = {
@@ -139,12 +114,12 @@ function addTitles() {
   const section2 = {
     id: "divInfo2",
     titleId: "title2",
-    description: "Heures streamées regardées :",
+    description: "Heures streamées regardées ",
   };
   const section3 = {
     id: "divInfo3",
     titleId: "title3",
-    description: "Rank mondial :",
+    description: "Rank mondial ",
   };
 
   const sections = [section1, section2, section3];
@@ -197,20 +172,14 @@ btnReset.addEventListener("click", () => {
   resetDivInfos2();
   resetDivInfos3();
 
-  
 
-  // titleFollowers.innerText = "";
-  // titleHoursWatched.innerText = "";
-  // titleRank.innerText = "";
 
   firstSearch = true;
-  // inputRefresh();
+  
 });
-// }
 
-// resetBtn();
-function inputRefresh() {}
-function resetBtn() {}
+
+
 
 // Créer le listener une fois
 // faire une fonction pour reset sans recréer le listener
@@ -232,7 +201,7 @@ function resetDivInfos1() {
     </div>
   `;
 }
-function resetDivInfos2 () {
+function resetDivInfos2() {
   divInfo2.innerHTML = "";
 
   divInfo2.innerHTML = `
@@ -254,7 +223,7 @@ function resetDivInfos2 () {
   `;
 }
 
-function resetDivInfos3 () {
+function resetDivInfos3() {
   divInfo3.innerHTML = "";
 
   divInfo3.innerHTML = `

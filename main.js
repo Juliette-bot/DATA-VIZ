@@ -1,5 +1,5 @@
 import {hideBtnResteAndInput, citationAleatoirStreameuses, btnResetAndInput, clearCitations} from './chargement.js'
-import { inputRefresh } from './pagePrincipale.js'
+
 import { hideannimation2, visibilityAnnimation2 } from './animation.js'
 
 
@@ -18,4 +18,3 @@ setTimeout(() => {
     ,1000)
 
 
-inputRefresh()
