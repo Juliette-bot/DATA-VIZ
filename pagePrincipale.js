@@ -18,17 +18,18 @@ input.addEventListener("keydown", async (event) => {
     const response = await fetchTwitch(event.target.value);
     initChart();
     await addStreamerToChart(event.target.value, response);
-    const blocks = [
-      document.getElementById("divInfo1"),
-      document.getAnimations("divInfo2"),
-      document.getElementById("divInfo3"),
-    ];
-    blocks.forEach((block, index) => {
+     const blocks = [
+       document.getElementById("divInfo1"),
+       document.getElementById("divInfo2"),
+       document.getElementById("divInfo3"),
+     
+     ];
+     blocks.forEach((block, index) => {
       setTimeout(() => {
-        block.classList.add("animate");
-      }, index * 1000);
-      console.log("coucou");
-    });
+         block.classList.add("animate");
+       }, index * 1500);
+     
+     });
 
     const nameStreameuse = document.getElementById("nameStreameuse");
     const pInfo1Streameuse = document.getElementById("pInfo1Streameuse");
@@ -113,7 +114,7 @@ function addAnimationFollowers(child) {
   let number = parseInt(child.innerText);
 
   animate(0, number, {
-    duration: 2,
+    duration: 6,
     ease: "circOut",
     onUpdate: (latest) => (child.innerHTML = Math.round(latest)),
   });
@@ -215,6 +216,9 @@ btnReset.addEventListener("click", () => {
   resetDivInfos3();
 
   firstSearch = true;
+    div1.classList.remove('animate');
+  div2.classList.remove('animate');
+  div3.classList.remove('animate');
 });
 
 // Créer le listener une fois
@@ -234,6 +238,8 @@ function resetDivInfos1() {
       <p id="pInfo1Anyme" class="pInfo1"></p>
       <p id="squeezie" class="name"></p>
       <p id="pInfo1Squeezie" class="pInfo1"></p>
+              <p id="articleFollowers">
+
     </div>
   `;
 }
@@ -242,6 +248,7 @@ function resetDivInfos2() {
 
   divInfo2.innerHTML = `
     <div id="title2"></div>
+            <p id="articleHeureStream"></p>
     <figure class="highcharts-figure">
       <div id="container">
         <div id="dataInfo2">
@@ -273,6 +280,8 @@ function resetDivInfos3() {
       <p id="pInfo1Anyme3" class="pInfo1"></p>
       <p id="squeezie3" class="name"></p>
       <p id="pInfo1Squeezie3" class="pInfo1"></p>
+                <p id="articleRank">
+
     </div>
   `;
 }
