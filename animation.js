@@ -28,8 +28,9 @@ function initChart() {
       plotBackgroundColor: null,
       plotBorderWidth: 0,
       plotShadow: false,
-      margin: [0, 0, 0, 0], // pas de marges inutiles
-      height: 400, // fixe pour la démo, tu peux adapter à ta hauteur cible
+      marginTop: -450,
+      spacingTop: -500,
+      spacingLeft: 20,
     },
     title: {
       text: "",
@@ -56,7 +57,7 @@ function initChart() {
         },
         startAngle: -90,
         endAngle: 90,
-        center: ["100%", "50%"], // ← position du centre du camembert
+        center: ["50%", "75%"],
         size: "110%",
       },
     },
@@ -68,34 +69,17 @@ function initChart() {
         data: seriesData,
       },
     ],
-    responsive: {
-      rules: [
-        {
-          condition: {
-            maxWidth: 600, // en dessous de 600px (mobile)
-          },
-          chartOptions: {
-            plotOptions: {
-              pie: {
-                center: ["50%", "50%"], // re-centre pour petits écrans
-              },
-            },
-          },
-        },
-      ],
-    },
   });
 }
 
-
 const fixedStreamers = ["Etoiles", "Anyme023", "Squeezie"];
-const fixedData = []; // contiendra les données fixes une fois au démarrage
-let customData = null; // contiendra les données de la streameuse personnalisée
+const fixedData = []; 
+let customData = null; 
 
 async function addStreamerToChart(streamerName, params) {
   const hours = params.hours_watched;
 
-  // Si c'est un nom fixe (Etoiles, Anyme, Squeezie), on l'ajoute aux données fixes
+ 
   if (fixedStreamers.includes(streamerName)) {
     const index = fixedData.findIndex((item) => item[0] === streamerName);
     if (index !== -1) {
@@ -104,11 +88,10 @@ async function addStreamerToChart(streamerName, params) {
       fixedData.push([streamerName, hours]);
     }
   } else {
-    // Sinon, on considère que c'est une streameuse personnalisée → on remplace
+    
     customData = [streamerName, hours];
   }
 
-  // Construit la série complète à chaque fois : données fixes + la donnée custom (s’il y en a une)
   const newSeriesData = [...fixedData];
   if (customData) {
     newSeriesData.push(customData);

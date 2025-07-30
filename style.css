@@ -73,7 +73,7 @@ body:focus-within {
 
 #divButtons {
   position: absolute;
-  top: 150px;
+  top: 300px;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -311,12 +311,14 @@ body:focus-within {
 
 }
 #divInfo2 {
-  display: flex;
+  display: center;
   height: 100%;
   margin-top: 30px;
   justify-content: right;
   flex-direction: column;
   animation-delay: 1s;
+  opacity: 0;
+
 }
 
 #divInfo3 {
@@ -405,7 +407,6 @@ p {
 }
 
 #textAcceuil {
-  margin-top: -350px;
   text-align: center;
 }
 
@@ -420,4 +421,20 @@ p {
   flex-direction: column;
 
 
+}
+
+
+#divInfo1.animate {
+  animation: fadeIn 3s ease forwards;
+  animation-delay: 1s;
+}
+
+#divInfo2.animate {
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 5s;
+}
+
+#divInfo3.animate {
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 3s;
 }
