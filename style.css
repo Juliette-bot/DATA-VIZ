@@ -73,7 +73,7 @@ body:focus-within {
 
 #divButtons {
   position: absolute;
-  top: 50%;
+  top: 150px;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -229,14 +229,13 @@ body:focus-within {
   z-index: 2;
   position: relative;
   margin-top: 40px;
-  padding: 4px 10px; 
+  padding: 4px 10px;
   border: none;
   background-color: white;
   color: #333;
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
- 
 }
 
 .title {
@@ -245,7 +244,6 @@ body:focus-within {
   font-size: 36px;
   color: #ffffff;
   margin-bottom: 10px;
-  
 }
 
 .nameFollowers {
@@ -290,11 +288,16 @@ body:focus-within {
   margin: 0.3rem 10px;
 }
 
+.highcharts-background {
+  margin-left: 500px;
+}
+
 #container-infos {
   height: 100%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  margin: 10px;
 }
 #divInfo1 {
   display: flex;
@@ -303,10 +306,12 @@ body:focus-within {
   justify-content: space-between;
   animation-delay: 0.5s;
 }
-#divinfo2 {
+#divInfo2 {
   display: flex;
   height: 100%;
-  justify-content: flex-start;
+  margin-top: 30px;
+  justify-content: right;
+  flex-direction: column;
   animation-delay: 1s;
 }
 
@@ -317,6 +322,7 @@ body:focus-within {
   animation-delay: 2s;
   text-align: right;
   align-items: flex-end;
+  margin: 10px;
 }
 
 #dataInfo1 {
@@ -326,7 +332,7 @@ body:focus-within {
 }
 
 .name {
-    font-size: 30px;
+  font-size: 30px;
   font-weight: 600;
 }
 
@@ -335,25 +341,37 @@ body:focus-within {
   color: #e0e0e0;
 }
 
-.pInfo1, .name {
+.pInfo1,
+.name {
   margin-top: 2px;
   margin-bottom: 2px;
   line-height: 1.3;
 }
-.name, .pInfo1, .title, p {
+.name,
+.pInfo1,
+.title,
+p {
   text-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
 }
 
-#nameStreameuse, #nameStreameuse2, #nameStreameuse3 {
+#nameStreameuse,
+#nameStreameuse2,
+#nameStreameuse3 {
   color: #ffaad4;
 }
-#etoiles, #etoiles2, #etoiles3 {
+#etoiles,
+#etoiles2,
+#etoiles3 {
   color: #ffd700;
 }
-#anyme, #anyme2, #anyme3 {
+#anyme,
+#anyme2,
+#anyme3 {
   color: #b0e0e6;
 }
-#squeezie, #squeezie2, #squeezie3 {
+#squeezie,
+#squeezie2,
+#squeezie3 {
   color: #90ee90;
 }
 
@@ -371,4 +389,22 @@ body:focus-within {
   opacity: 0;
   animation: fadeIn 0.6s ease forwards;
   transform: translateY(50px);
+}
+
+#textAcceuil {
+  margin-top: -350px;
+  text-align: center;
+}
+
+#articleFollowers.stats {
+  margin-right: 300px;
+}
+
+
+
+#articleHeureStream.stats {
+  display: flex;
+  flex-direction: column;
+
+
 }

@@ -1,10 +1,9 @@
 import { animate } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
 import { initChart, addStreamerToChart } from "./animation.js";
-export { addTextAccueil}
+export { addTextAccueil };
 
 const btnReset = document.getElementById("btnReset");
 const input = document.getElementById("input");
-
 let firstSearch = true;
 
 function addTextAccueil() {
@@ -12,23 +11,13 @@ function addTextAccueil() {
   textAcceuil.innerText =
     " Tu t’es déjà demandé quelle place occupent les femmes sur Twitch ? Spoiler : elles sont là, elles déchirent, mais on ne les voit pas assez. Ici, tu peux comparer les données de streameuses à celles des plus gros streameur·euses francophones — pour mettre en lumière leur taf et leur impact. Besoin d’inspi ? Va jeter un œil à Maghla, Deujna, Jeel, LittleBigWhale, Julia Bayonetta, SerialSapphic, Clara__cmoi, Helydia… et bien d’autres ! 🎮 Parce que le stream mérite aussi plus d’égalité. Et plus de femmes visibles à l’écran.";
 }
+
 //Notre input keydown qui appel notre api en dynamique selon un nom donné par le/la user
 input.addEventListener("keydown", async (event) => {
   if (event.key === "Enter" && event.target.value !== "") {
     const response = await fetchTwitch(event.target.value);
     initChart();
     await addStreamerToChart(event.target.value, response);
-    const blocks = [
-      document.getElementById("divInfo1"),
-      document.getAnimations("divInfo2"),
-      document.getElementById("divInfo3"),
-    ];
-    blocks.forEach((block, index) => {
-      setTimeout(() => {
-        block.classList.add("animate");
-      }, index * 1000);
-      console.log("coucou");
-    });
 
     const nameStreameuse = document.getElementById("nameStreameuse");
     const pInfo1Streameuse = document.getElementById("pInfo1Streameuse");
@@ -56,6 +45,8 @@ input.addEventListener("keydown", async (event) => {
     if (firstSearch) {
       addTitles();
       addStats();
+      const pTextAcceuil = document.getElementById('textAcceuil')
+      pTextAcceuil.style.visibility = "hidden"
       const nameEtoiles = "etoiles";
       const nameAnyme = "anyme023";
       const nameSqueezie = "squeezie";
@@ -106,7 +97,7 @@ input.addEventListener("keydown", async (event) => {
     event.target.value = "";
   }
 });
-
+// }
 
 //Application de notre 1ere animation sur un block de données (FOLLOWERS)
 function addAnimationFollowers(child) {
@@ -119,8 +110,6 @@ function addAnimationFollowers(child) {
   });
 }
 
-//Ajout de titre au dessus de nos données dans chaque block ("block")
-
 function addTitles() {
   const section1 = {
     id: "divInfo1",
@@ -130,12 +119,12 @@ function addTitles() {
   const section2 = {
     id: "divInfo2",
     titleId: "title2",
-    description: "Heures streamées regardées ",
+    description: "Heures streamées regardées :",
   };
   const section3 = {
     id: "divInfo3",
     titleId: "title3",
-    description: "Rank mondial ",
+    description: "Rank mondial :",
   };
 
   const sections = [section1, section2, section3];
@@ -148,6 +137,7 @@ function addTitles() {
     divInfo.prepend(divTitle);
   }
 }
+
 function addStats() {
   const section1 = {
     statsId: "articleFollowers",
@@ -171,7 +161,6 @@ function addStats() {
     const statsId = document.getElementById(section.statsId);
     statsId.innerText = section.description;
     statsId.classList.add("stats");
-
   }
 }
 
@@ -234,6 +223,7 @@ function resetDivInfos1() {
       <p id="pInfo1Anyme" class="pInfo1"></p>
       <p id="squeezie" class="name"></p>
       <p id="pInfo1Squeezie" class="pInfo1"></p>
+      <p id="articleFollowers"></p>
     </div>
   `;
 }
@@ -242,6 +232,7 @@ function resetDivInfos2() {
 
   divInfo2.innerHTML = `
     <div id="title2"></div>
+    <p id="articleHeureStream"></p>
     <figure class="highcharts-figure">
       <div id="container">
         <div id="dataInfo2">
@@ -273,6 +264,8 @@ function resetDivInfos3() {
       <p id="pInfo1Anyme3" class="pInfo1"></p>
       <p id="squeezie3" class="name"></p>
       <p id="pInfo1Squeezie3" class="pInfo1"></p>
+      <p id="articleRank"></p>
+
     </div>
   `;
 }
