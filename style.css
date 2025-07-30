@@ -252,6 +252,7 @@ body:focus-within {
   font-family: "Sansation";
   font-size: 45px;
   color: aquamarine;
+
 }
 
 .followers {
@@ -274,6 +275,7 @@ body:focus-within {
   min-width: 320px;
   max-width: 500px;
   margin: 1em auto;
+
 }
 
 .highcharts-figure {
@@ -304,7 +306,9 @@ body:focus-within {
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
-  animation-delay: 0.5s;
+  opacity: 0;
+
+
 }
 #divInfo2 {
   display: flex;
@@ -323,6 +327,8 @@ body:focus-within {
   text-align: right;
   align-items: flex-end;
   margin: 10px;
+  opacity: 0;
+ 
 }
 
 #dataInfo1 {
@@ -334,11 +340,17 @@ body:focus-within {
 .name {
   font-size: 30px;
   font-weight: 600;
+    
+    
+
 }
 
 .pInfo1 {
   font-size: 18px;
   color: #e0e0e0;
+   
+
+
 }
 
 .pInfo1,
@@ -375,10 +387,11 @@ p {
   color: #90ee90;
 }
 
+
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(50px);
   }
   to {
     opacity: 1;
