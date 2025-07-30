@@ -1,5 +1,5 @@
 import {hideBtnResteAndInput, citationAleatoirStreameuses, btnResetAndInput, clearCitations} from './chargement.js'
-
+import { addTextAccueil } from './pagePrincipale.js'
 import { hideannimation2, visibilityAnnimation2 } from './animation.js'
 
 
@@ -12,6 +12,7 @@ setTimeout(() => {
     btnResetAndInput()
     clearCitations()
     visibilityAnnimation2()
+    addTextAccueil()
 
 
 }

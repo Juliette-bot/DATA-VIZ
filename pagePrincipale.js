@@ -1,17 +1,34 @@
 import { animate } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
 import { initChart, addStreamerToChart } from "./animation.js";
+export { addTextAccueil}
 
 const btnReset = document.getElementById("btnReset");
 const input = document.getElementById("input");
 
 let firstSearch = true;
 
+function addTextAccueil() {
+  const textAcceuil = document.getElementById("textAcceuil");
+  textAcceuil.innerText =
+    " Tu t’es déjà demandé quelle place occupent les femmes sur Twitch ? Spoiler : elles sont là, elles déchirent, mais on ne les voit pas assez. Ici, tu peux comparer les données de streameuses à celles des plus gros streameur·euses francophones — pour mettre en lumière leur taf et leur impact. Besoin d’inspi ? Va jeter un œil à Maghla, Deujna, Jeel, LittleBigWhale, Julia Bayonetta, SerialSapphic, Clara__cmoi, Helydia… et bien d’autres ! 🎮 Parce que le stream mérite aussi plus d’égalité. Et plus de femmes visibles à l’écran.";
+}
 //Notre input keydown qui appel notre api en dynamique selon un nom donné par le/la user
 input.addEventListener("keydown", async (event) => {
   if (event.key === "Enter" && event.target.value !== "") {
     const response = await fetchTwitch(event.target.value);
     initChart();
     await addStreamerToChart(event.target.value, response);
+    const blocks = [
+      document.getElementById("divInfo1"),
+      document.getAnimations("divInfo2"),
+      document.getElementById("divInfo3"),
+    ];
+    blocks.forEach((block, index) => {
+      setTimeout(() => {
+        block.classList.add("animate");
+      }, index * 1000);
+      console.log("coucou");
+    });
 
     const nameStreameuse = document.getElementById("nameStreameuse");
     const pInfo1Streameuse = document.getElementById("pInfo1Streameuse");
@@ -38,6 +55,7 @@ input.addEventListener("keydown", async (event) => {
 
     if (firstSearch) {
       addTitles();
+      addStats();
       const nameEtoiles = "etoiles";
       const nameAnyme = "anyme023";
       const nameSqueezie = "squeezie";
@@ -88,7 +106,7 @@ input.addEventListener("keydown", async (event) => {
     event.target.value = "";
   }
 });
-// }
+
 
 //Application de notre 1ere animation sur un block de données (FOLLOWERS)
 function addAnimationFollowers(child) {
@@ -102,8 +120,6 @@ function addAnimationFollowers(child) {
 }
 
 //Ajout de titre au dessus de nos données dans chaque block ("block")
-
-
 
 function addTitles() {
   const section1 = {
@@ -130,6 +146,32 @@ function addTitles() {
     divTitle.innerText = section.description;
     divTitle.classList.add("title");
     divInfo.prepend(divTitle);
+  }
+}
+function addStats() {
+  const section1 = {
+    statsId: "articleFollowers",
+    description:
+      "Une étude mentionnée par StreamScheme indique que, parmi les 2 500 meilleurs streamers, les hommes ont en moyenne 20 viewers supplémentaires sur 60 jours, alors que les femmes en gagnent seulement 2. Cela représente donc une croissance 10 fois plus rapide pour les hommes vs les femmes sur cette métrique. StreamScheme +2 StreamScheme +2 Vintage is The New Old +2",
+  };
+  const section2 = {
+    statsId: "articleHeureStream",
+    description:
+      "Selon Stream Hatchet, en août 2017, seulement 3,2% des heures vues dans le top 500 des chaînes Twitch étaient générées par des créatrices femmes. Cela montre une énorme prédominance masculine dans les très gros canaux de diffusion;",
+  };
+  const section3 = {
+    statsId: "articleRank",
+    description:
+      "Selon Dexerto et Stream Hatchet, 99 des 100 streamers les plus regardés sur Twitch, YouTube, Facebook Gaming étaient des hommes Il n’y avait qu’une seule femme dans ces 100 streamers, Amouranth, classée 56ᵉ. 🎯 Cela signifie que seulement 1% des top 100 streamers étaient des femmes",
+  };
+
+  const sections = [section1, section2, section3];
+
+  for (let section of sections) {
+    const statsId = document.getElementById(section.statsId);
+    statsId.innerText = section.description;
+    statsId.classList.add("stats");
+
   }
 }
 
@@ -172,14 +214,8 @@ btnReset.addEventListener("click", () => {
   resetDivInfos2();
   resetDivInfos3();
 
-
-
   firstSearch = true;
-  
 });
-
-
-
 
 // Créer le listener une fois
 // faire une fonction pour reset sans recréer le listener
