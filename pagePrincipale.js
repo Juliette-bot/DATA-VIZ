@@ -8,14 +8,32 @@ let firstSearch = true;
 
 function addTextAccueil() {
   const textAcceuil = document.getElementById("textAcceuil");
-  textAcceuil.innerText =
-    " Tu t’es déjà demandé quelle place occupent les femmes sur Twitch ? Spoiler : elles sont là, elles déchirent, mais on ne les voit pas assez. Ici, tu peux comparer les données de streameuses à celles des plus gros streameur·euses francophones — pour mettre en lumière leur taf et leur impact. Besoin d’inspi ? Va jeter un œil à Maghla, Deujna, Jeel, LittleBigWhale, Julia Bayonetta, SerialSapphic, Clara__cmoi, Helydia… et bien d’autres ! 🎮 Parce que le stream mérite aussi plus d’égalité. Et plus de femmes visibles à l’écran.";
-}
+  textAcceuil.innerHTML =
+`Tu t'es déjà demandé quelle place occupent les <span class="highlight">femmes</span> sur <span class="highlight">Twitch</span> ? Spoiler : elles sont là, elles déchirent, mais on ne les voit pas assez. 
+    Ici, tu peux comparer les données de streameuses à celles des plus gros streameur·euses francophones — pour mettre en lumière leur taf et leur impact. 
+    Besoin d'inspi ? Va jeter un œil à 
+    <span class="highlight">Maghla</span>, 
+    <span class="highlight">Deujna</span>, 
+    <span class="highlight">Jeeltv</span>, 
+    <span class="highlight">LittleBigWhale</span>, 
+    <span class="highlight">Gom4rt</span>, 
+    <span class="highlight">SerialSapphic</span>, 
+    <span class="highlight">Clara__cmoi</span>, 
+    <span class="highlight">Helydia</span>… et bien d'autres ! 🎮 
+    Parce que le stream mérite aussi plus d'égalité. Et plus de <span class="highlight">femmes</span> visibles à l'écran.`;}
 
 //Notre input keydown qui appel notre api en dynamique selon un nom donné par le/la user
 input.addEventListener("keydown", async (event) => {
   if (event.key === "Enter" && event.target.value !== "") {
     const response = await fetchTwitch(event.target.value);
+    const profileImageUrl = await fetchTwitchProfileImage(event.target.value);
+const imgProfile = document.getElementById("profileImage");
+if (imgProfile) {
+  imgProfile.src = profileImageUrl;
+  imgProfile.style.visibility = "visible";
+   imgProfile.style.opacity = "1"; 
+}
+
     initChart();
     await addStreamerToChart(event.target.value, response);
      const blocks = [
@@ -154,24 +172,24 @@ function addStats() {
   const section1 = {
     statsId: "articleFollowers",
     description:
-      "Une étude mentionnée par StreamScheme indique que, parmi les 2 500 meilleurs streamers, les hommes ont en moyenne 20 viewers supplémentaires sur 60 jours, alors que les femmes en gagnent seulement 2. Cela représente donc une croissance 10 fois plus rapide pour les hommes vs les femmes sur cette métrique. StreamScheme +2 StreamScheme +2 Vintage is The New Old +2",
+      `Une étude mentionnée par <strong>StreamScheme</strong> indique que, parmi les <span class="highlight">2 500</span> meilleurs streamers, les hommes ont en moyenne <span class="highlight">20</span> viewers supplémentaires sur 60 jours, alors que les femmes en gagnent seulement <span class="highlight">2</span>. Cela représente donc une croissance <span class="highlight">10 fois</span> plus rapide pour les hommes vs les femmes sur cette métrique.`,
   };
   const section2 = {
     statsId: "articleHeureStream",
     description:
-      "Selon Stream Hatchet, en août 2017, seulement 3,2% des heures vues dans le top 500 des chaînes Twitch étaient générées par des créatrices femmes. Cela montre une énorme prédominance masculine dans les très gros canaux de diffusion;",
+      `Selon <strong>Stream Hatchet</strong>, en août 2017, seulement <span class="highlight">3,2%</span> des heures vues dans le top 500 des chaînes Twitch étaient générées par des créatrices femmes.`,
   };
   const section3 = {
     statsId: "articleRank",
     description:
-      "Selon Dexerto et Stream Hatchet, 99 des 100 streamers les plus regardés sur Twitch, YouTube, Facebook Gaming étaient des hommes Il n’y avait qu’une seule femme dans ces 100 streamers, Amouranth, classée 56ᵉ. 🎯 Cela signifie que seulement 1% des top 100 streamers étaient des femmes",
+      `Selon <strong>Dexerto</strong> et <strong>Stream Hatchet</strong>, <span class="highlight">99 des 100</span> streamers les plus regardés sur Twitch, YouTube, Facebook Gaming étaient des hommes. Il n'y avait qu'une seule femme dans ces 100 streamers, <span class="highlight">Amouranth</span>, classée <span class="highlight">56ᵉ</span>. 🎯 Cela signifie que seulement <span class="highlight">1%</span> des top 100 streamers étaient des femmes.`,
   };
 
   const sections = [section1, section2, section3];
 
   for (let section of sections) {
     const statsId = document.getElementById(section.statsId);
-    statsId.innerText = section.description;
+    statsId.innerHTML = section.description;
     statsId.classList.add("stats");
   }
 }
@@ -207,6 +225,20 @@ async function contentInfo(
   return data;
 }
 
+async function fetchTwitchProfileImage(username) {
+  const clientId = "ngp43pbq35tc45t46v974xa9x0ij0z";
+  const token = "howe2jz6qvm4jkwws3begqi8sow67n";
+
+  const response = await fetch(`https://api.twitch.tv/helix/users?login=${username}`, {
+    headers: {
+      "Client-ID": clientId,
+      "Authorization": `Bearer ${token}`
+    }
+  });
+  const data = await response.json();
+
+  return data.data[0].profile_image_url;
+}
 //Ajout d'un evenement sur notre btn reset, il vas nous permettre de vider toute nos data
 // et titre pour repartir sur un page "neuve"
 // function resetBtn() {
@@ -214,11 +246,21 @@ btnReset.addEventListener("click", () => {
   resetDivInfos1();
   resetDivInfos2();
   resetDivInfos3();
+ 
+  const imgProfile = document.getElementById("profileImage");
+if (imgProfile) {
+  imgProfile.style.opacity = "0";
+  imgProfile.style.visibility = "hidden";
+}
 
   firstSearch = true;
+  const div1 = document.getElementById("divInfo1");
+const div2 = document.getElementById("divInfo2");
+const div3 = document.getElementById("divInfo3");
     div1.classList.remove('animate');
   div2.classList.remove('animate');
   div3.classList.remove('animate');
+  
 });
 
 // Créer le listener une fois

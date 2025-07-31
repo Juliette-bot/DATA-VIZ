@@ -6,13 +6,14 @@ export {
 };
 
 function hideannimation2() {
-  const divInfo2 = document.getElementById("divInfo2");
+  const divInfo2 = document.getElementById("divButtons");
 
   divInfo2.style.display = "none";
 }
 
 function visibilityAnnimation2() {
-  const divInfo2 = document.getElementById("divInfo2");
+  const divInfo2 = document.getElementById("divButtons");
+  
 
   divInfo2.style.display = "flex";
 }
@@ -58,7 +59,7 @@ function initChart() {
         startAngle: -90,
         endAngle: 90,
         center: ["50%", "75%"],
-        size: "110%",
+        size: "70%",
       },
     },
     series: [

@@ -13,7 +13,7 @@ setTimeout(() => {
     clearCitations()
     visibilityAnnimation2()
     addTextAccueil()
-
+document.getElementById("divButtons").classList.add("active");
 
 }
     ,7000)

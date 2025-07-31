@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Dataviz</title>
     <script type="module" src="dico.js" defer></script>
     <script type="module" src="main.js" defer></script>
     <script type="module" src="chargement.js" defer></script>
@@ -28,7 +28,8 @@
       <h1 class="ml12"></h1>
     </div>
 
-    <div id="divButtons">
+    <div id="divButtons" class="fadingIntro">
+         <img id="profileImage" alt="Photo de profil Twitch" />
       <label class="input-container closed">
         <div class="shadow"></div>
         <div class="center">
@@ -36,6 +37,7 @@
         </div>
         <div class="sticks"></div>
       </label>
+    
 
       <button id="btnReset">Reset</button>
     <p id="textAcceuil"></p>
@@ -47,6 +49,7 @@
 
         <div id="dataInfo1">
           <p id="nameStreameuse" class="name"></p>
+         
           <p id="pInfo1Streameuse" class="pInfo1"></p>
 
           <p id="etoiles" class="name"></p>
